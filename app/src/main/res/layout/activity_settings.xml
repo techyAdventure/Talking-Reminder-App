@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".SettingsActivity"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".SettingsActivity"
+    android:orientation="vertical">
+
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="350dp"-->
+<!--        android:src="@drawable/layout">-->
+
+<!--    </ImageView>-->
+
+    <ImageView
+        android:id="@+id/TimePickerBTN"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/alarms"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@+id/date"
+        android:clickable="true">
+
+    </ImageView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/date"
+        android:textSize="24sp"
+        android:fontFamily="@font/amaranth">
+
+    </TextView>
+
+<!--    <Button-->
+<!--        android:id="@+id/TimePickerBTN"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:background="@drawable/settingsbtn"-->
+<!--        android:layout_below="@+id/date"-->
+<!--        android:clickable="true"-->
+<!--        android:fontFamily="@font/manga"-->
+<!--        android:text="Motor ON"-->
+<!--        android:textAllCaps="true"-->
+<!--        android:textColor="#fff"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:backgroundTint="@null">-->
+
+<!--    </Button>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/ll"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/TimePickerBTN"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/llayout"
+        tools:context=".SettingsActivity"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task to Remind You"
+            android:textSize="16sp"
+            android:textColor="#150338"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif-medium"/>
+
+        <EditText
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/custom_edittext"
+            android:hint="@string/edittext_hint_T"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/msg"
+            android:text="Message to Notify"
+            android:textSize="16sp"
+            android:textColor="#150338"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif-medium"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/msg"
+            android:orientation="horizontal"
+            tools:context=".SettingsActivity">
+
+            <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="@string/edittext_hint"
+                android:padding="10dp" />
+
+            <ImageView
+                android:id="@+id/volume"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_baseline_volume_up_24" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pitch"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#150338"/>
+
+        <SeekBar
+            android:id="@+id/seek_bar_pitch"
+            android:layout_width="200dp"
+            android:layout_marginBottom="12dp"
+            android:layout_height="wrap_content"
+            android:progress="50" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speed"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#150338"/>
+
+        <SeekBar
+            android:id="@+id/seek_bar_speed"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:progress="50" />
+
+        <Button
+            android:id="@+id/button_speak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:enabled="true"
+            android:text="Say it!"
+            android:background="@drawable/custom_btn"
+            android:textColor="#fff"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+</ScrollView>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Reminder</string>
+    <string name="edittext_hint_T"><font size="15">Enter a Task</font></string>
+    <string name="edittext_hint"><font size="15">Enter a message</font></string>
+</resources>
