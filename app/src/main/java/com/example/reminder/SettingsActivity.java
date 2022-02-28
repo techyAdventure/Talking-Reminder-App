@@ -1,32 +1,31 @@
 package com.example.reminder;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.Manifest;
 import android.app.AlarmManager;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 
-import android.content.ContentValues;
+
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.media.MediaRecorder;
-import android.net.Uri;
+
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
-import android.view.Gravity;
+
 import android.view.View;
-import android.view.WindowManager;
+
 import android.widget.Button;
-import android.widget.DatePicker;
+
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
 import android.widget.Toast;
 
 import com.example.reminder.databinding.ActivityMainBinding;
@@ -50,6 +49,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -60,6 +61,10 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
     private ActivityMainBinding binding;
     private MaterialTimePicker picker;
+
+    private String mAudioFilename = "";
+    private final String mUtteranceID = "totts";
+    
     private Calendar calendar;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -73,19 +78,24 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     private Button mButtonSpeak;
     private TextView date_pc;
 
+
     private EditText mTitleText;
     String timeTonotify;
     String text;
     String title;
     String date_to;
     Date date1;
+    String folder_main;
     SimpleDateFormat simpleDateFormat;
+
 
     public boolean textToSpeechIsInitialized = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+
 
         DB = new dbManager(SettingsActivity.this);
         Tm_btn = findViewById(R.id.TimePickerBTN);
@@ -118,6 +128,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         Date date = new Date();
         simpleDateFormat = new SimpleDateFormat("E, d MMMM");
         String dateformat = simpleDateFormat.format(date);
+        folder_main = "dateformat";
 
         date_pc.setText(dateformat);
 
@@ -163,15 +174,13 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             @Override
             public void onClick(View v) {
                 speak();
+
+
             }
         });
 
     }
-    public void saveAll(String title, String date, String time){
 
-
-
-    }
 
     private void showDatePicker() {
 
@@ -196,6 +205,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
 
     }
+
 
     private void speak() {
 
@@ -224,39 +234,50 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             // Can't read or write
             mExternalStorageAvailable = mExternalStorageWriteable = false;
         }
-        File root = android.os.Environment.getExternalStorageDirectory();
-        File dir = new File(root.getAbsolutePath());
-        dir.mkdirs();
-        File file = new File(dir, "myTone.mp3");
 
-
-        int test = mTTS.synthesizeToFile((CharSequence) text, null, file,
-                "tts");
 
         text = mEditText.getText().toString();
         title = mTitleText.getText().toString().trim();                               //access the data form the input field
         date_to = date_pc.getText().toString().trim();
 
-        if (title.isEmpty()) {
-            Toast.makeText(SettingsActivity.this, "Please Enter text", Toast.LENGTH_SHORT).show();   //shows the toast if input field is empty
-        } else {
-            if (timeTonotify == null || date_to == null) {                                               //shows toast if date and time are not selected //|| date.equals("date")
-                Toast.makeText(SettingsActivity.this, "Please select time", Toast.LENGTH_SHORT).show();
-            } else {
-                String result = DB.addreminder(title, date_to, timeTonotify);
-                mTitleText.setText("");
-                mEditText.setText("");
-                Intent intent = new Intent(SettingsActivity.this, ListActivity.class);
-                intent.putExtra("tile_text", title);
-                startActivity(intent);
+        if (!text.isEmpty()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
+                String fileName = "/myTone.mp3";
+
+                File f = new File(getExternalFilesDir(null) + "/", folder_main);
+                File file = new File(f, fileName);
+                if (!f.exists()) {
+                    f.mkdir();
+                    Toast.makeText(SettingsActivity.this, "Make Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
+
+                }
+                Toast.makeText(SettingsActivity.this, "Done Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "The file path = " + file.getAbsolutePath());
+                int test = mTTS.synthesizeToFile((CharSequence) text, null, file,
+                        "tts");
             }
         }
 
+            if (title.isEmpty()) {
+                Toast.makeText(SettingsActivity.this, "Please Enter title", Toast.LENGTH_SHORT).show();   //shows the toast if input field is empty
+            } else {
+                if (timeTonotify == null || date_to == null) {                                               //shows toast if date and time are not selected //|| date.equals("date")
+                    Toast.makeText(SettingsActivity.this, "Please select time", Toast.LENGTH_SHORT).show();
+                } else {
+                    String result = DB.addreminder(title, date_to, timeTonotify);
+                    mTitleText.setText("");
+                    mEditText.setText("");
+                    Intent intent = new Intent(SettingsActivity.this, ListActivity.class);
+                    intent.putExtra("tile_text", title);
+
+                    startActivity(intent);
+
+                }
+            }
 
 
-    }
-
+        }
 
 
     @Override
@@ -290,11 +311,13 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
                 Intent intent = new Intent(SettingsActivity.this,
                         AlarmReceiver.class);
+
                 intent.putExtra("event", title);                                                       //sending data to alarm class to create channel and notification
                 intent.putExtra("stext", text);
-                pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this,0,intent,0);
 
-;
+                intent.putExtra("folder",folder_main);
+
+                pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this,0,intent,0);
 
                 calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY,picker.getHour());
@@ -307,7 +330,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
                 timeTonotify = FormatTime(picker.getHour(),picker.getMinute());
 
-                Toast.makeText(SettingsActivity.this,"Alarm Set Successfully at "+ timeTonotify + title+text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsActivity.this,"Alarm Set Successfully at "+ timeTonotify + folder_main, Toast.LENGTH_SHORT).show();
 
 
 
