@@ -50,6 +50,7 @@ public class ListActivity extends AppCompatActivity {
 
         adapter = new myAdapter(dataholder);
         mRecyclerview.setAdapter(adapter);
+        adapter.notifyItemRangeInserted(0, dataholder.size());
     }
     @Override
     public void onBackPressed() {

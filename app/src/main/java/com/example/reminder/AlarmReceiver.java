@@ -33,8 +33,8 @@ public class    AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Bundle bundle = intent.getExtras();
-        String text = bundle.getString("event");
-        String date = bundle.getString("stext") ;
+        String text = SettingsActivity.title;
+        String date = SettingsActivity.text ;
         String folder = SettingsActivity.folder_main ;
         Log.d(TAG, "The folder = " + folder);
 
@@ -82,7 +82,7 @@ public class    AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"foxandroid")
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setAutoCancel(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setSilent(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContent(contentView)
                 .setContentIntent(pendingIntent);

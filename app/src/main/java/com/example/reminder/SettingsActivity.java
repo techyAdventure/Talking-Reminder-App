@@ -79,11 +79,12 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
     private EditText mTitleText;
     String timeTonotify;
-    String text;
-    String title;
+    public static String text;
+    public static String title;
     String date_to;
     Date date1;
     public static String folder_main;
+
     SimpleDateFormat simpleDateFormat;
     Random random;
 
