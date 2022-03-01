@@ -52,6 +52,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
 
 
@@ -61,9 +62,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
     private ActivityMainBinding binding;
     private MaterialTimePicker picker;
-
-    private String mAudioFilename = "";
-    private final String mUtteranceID = "totts";
     
     private Calendar calendar;
     private AlarmManager alarmManager;
@@ -85,8 +83,9 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     String title;
     String date_to;
     Date date1;
-    String folder_main;
+    public static String folder_main;
     SimpleDateFormat simpleDateFormat;
+    Random random;
 
 
     public boolean textToSpeechIsInitialized = false;
@@ -95,7 +94,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-
+        random = new Random();
 
         DB = new dbManager(SettingsActivity.this);
         Tm_btn = findViewById(R.id.TimePickerBTN);
@@ -128,7 +127,8 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         Date date = new Date();
         simpleDateFormat = new SimpleDateFormat("E, d MMMM");
         String dateformat = simpleDateFormat.format(date);
-        folder_main = "dateformat";
+
+        folder_main = String.valueOf(random.nextInt(1000));
 
         date_pc.setText(dateformat);
 
@@ -180,7 +180,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         });
 
     }
-
 
     private void showDatePicker() {
 
@@ -249,10 +248,10 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 File file = new File(f, fileName);
                 if (!f.exists()) {
                     f.mkdir();
-                    Toast.makeText(SettingsActivity.this, "Make Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(SettingsActivity.this, "Make Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
 
                 }
-                Toast.makeText(SettingsActivity.this, "Done Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SettingsActivity.this, "Done Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "The file path = " + file.getAbsolutePath());
                 int test = mTTS.synthesizeToFile((CharSequence) text, null, file,
                         "tts");
@@ -270,7 +269,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                     mEditText.setText("");
                     Intent intent = new Intent(SettingsActivity.this, ListActivity.class);
                     intent.putExtra("tile_text", title);
-
                     startActivity(intent);
 
                 }
@@ -308,14 +306,19 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             public void onClick(View v) {
 
                 alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Bundle bundle = new Bundle();
+                bundle.putString("event", title);
+                bundle.putString("text", text);
+                bundle.putString("folder",folder_main);
 
                 Intent intent = new Intent(SettingsActivity.this,
                         AlarmReceiver.class);
+                intent.putExtras(bundle);
 
-                intent.putExtra("event", title);                                                       //sending data to alarm class to create channel and notification
-                intent.putExtra("stext", text);
-
-                intent.putExtra("folder",folder_main);
+//                intent.putExtra("event", title);                                                       //sending data to alarm class to create channel and notification
+//                intent.putExtra("stext", text);
+//
+//                intent.putExtra("folder",folder_main);
 
                 pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this,0,intent,0);
 
@@ -329,7 +332,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                         AlarmManager.INTERVAL_DAY,pendingIntent);
 
                 timeTonotify = FormatTime(picker.getHour(),picker.getMinute());
-
+                Log.d(TAG, "The folder Settings= " + folder_main);
                 Toast.makeText(SettingsActivity.this,"Alarm Set Successfully at "+ timeTonotify + folder_main, Toast.LENGTH_SHORT).show();
 
 

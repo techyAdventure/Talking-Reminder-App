@@ -35,9 +35,8 @@ public class    AlarmReceiver extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         String text = bundle.getString("event");
         String date = bundle.getString("stext") ;
-//        String folder = intent.getStringExtra("folder");
-//        System.out.println(folder);
-//        Log.d(TAG, "The folder = " + folder);
+        String folder = SettingsActivity.folder_main ;
+        Log.d(TAG, "The folder = " + folder);
 
         Intent i = new Intent(context, ListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -49,12 +48,8 @@ public class    AlarmReceiver extends BroadcastReceiver {
         contentView.setTextViewText(R.id.message, text);
         contentView.setTextViewText(R.id.date, date);
 
-        contentView.setOnClickPendingIntent(R.id.flashButton, pendingSwitchIntent);
-                File baseDir = Environment.getExternalStorageDirectory();
-        String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/"+"dateformat"+"/"+"myTone" + ".mp3";
+        String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/"+folder+"/"+"myTone" + ".mp3";
 
-
-//        String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/" + folder+ "/"+"myTone" + ".mp3";
         File file = new File(audioPath);
         FileInputStream inputStream = null;
 
@@ -74,7 +69,6 @@ public class    AlarmReceiver extends BroadcastReceiver {
 
         try {
                 mp.setDataSource(inputStream.getFD());
-
                 mp.prepare();
                 mp.start();
                 inputStream.close();
