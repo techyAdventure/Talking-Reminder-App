@@ -5,23 +5,17 @@
 <item>
     <shape android:shape="rectangle">
         <corners android:radius="10dp"></corners>
-        <gradient
-            android:angle="360"
-            android:startColor="#1225a8"
-            android:centerColor = "#620DEE"
-            android:endColor = "#30DAC5"
-            android:type="linear"
-            />
+        <solid android:color="#929293"/>
         <size android:width="100dp"
             android:height="40dp"/>
     </shape>
 </item>
 
 <item
-    android:bottom="2dp"
-    android:left="2dp"
-    android:right="2dp"
-    android:top="2dp">
+    android:bottom="1dp"
+    android:left="1dp"
+    android:right="1dp"
+    android:top="1dp">
     <shape android:shape="rectangle" >
         <corners android:radius="10dp"></corners>
         <solid android:color="#fff" />

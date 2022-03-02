@@ -5,8 +5,11 @@
     <corners android:radius="10dp"></corners>
 
     <solid android:color="#fff"></solid>
-    <stroke android:color="#e8e8e8"
+    <stroke android:color="#eda9a9"
+
         android:width="2dp"
-        android:dashGap="100dp"></stroke>
+        android:dashGap="50dp"></stroke>
 
 </shape>
+
+

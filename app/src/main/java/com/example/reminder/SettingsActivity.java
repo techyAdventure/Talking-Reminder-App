@@ -2,6 +2,7 @@ package com.example.reminder;
 
 import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -24,11 +25,9 @@ import android.view.View;
 import android.widget.Button;
 
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import android.widget.Toast;
 
-import com.example.reminder.databinding.ActivityMainBinding;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -39,18 +38,13 @@ import com.google.android.material.timepicker.TimeFormat;
 
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
@@ -60,13 +54,13 @@ import android.os.Bundle;
 
 public class SettingsActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
-    private ActivityMainBinding binding;
+
     private MaterialTimePicker picker;
     
     private Calendar calendar;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    private ImageView Tm_btn;
+    private Button Tm_btn;
     private ImageView spk;
     dbManager DB;
     private TextToSpeech mTTS;
@@ -74,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     private SeekBar mSeekBarPitch;
     private SeekBar mSeekBarSpeed;
     private Button mButtonSpeak;
-    private TextView date_pc;
+    private Button date_pc;
 
 
     private EditText mTitleText;
@@ -90,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
 
     public boolean textToSpeechIsInitialized = false;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,16 +100,8 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         mSeekBarSpeed = findViewById(R.id.seek_bar_speed);
         mTitleText = findViewById(R.id.title_text);
         date_pc = findViewById(R.id.date);
-        spk = findViewById(R.id.volume);
-
 
         createNotificationChannel();
-        spk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                speak();
-            }
-        });
 
         Tm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +113,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         });
 
         Date date = new Date();
-        simpleDateFormat = new SimpleDateFormat("E, d MMMM");
+        simpleDateFormat = new SimpleDateFormat("d MMMM");
         String dateformat = simpleDateFormat.format(date);
 
         folder_main = String.valueOf(random.nextInt(1000));
@@ -141,8 +128,9 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
             }
         });
-
-
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("h:mm a");
+        Tm_btn.setText(simpleDateFormat2.format(calendar.getTime()));
 
         mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -250,7 +238,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 if (!f.exists()) {
                     f.mkdir();
 //                    Toast.makeText(SettingsActivity.this, "Make Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
-
                 }
 //                Toast.makeText(SettingsActivity.this, "Done Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "The file path = " + file.getAbsolutePath());
@@ -307,19 +294,8 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             public void onClick(View v) {
 
                 alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                Bundle bundle = new Bundle();
-                bundle.putString("event", title);
-                bundle.putString("text", text);
-                bundle.putString("folder",folder_main);
-
                 Intent intent = new Intent(SettingsActivity.this,
                         AlarmReceiver.class);
-                intent.putExtras(bundle);
-
-//                intent.putExtra("event", title);                                                       //sending data to alarm class to create channel and notification
-//                intent.putExtra("stext", text);
-//
-//                intent.putExtra("folder",folder_main);
 
                 pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this,0,intent,0);
 
@@ -329,15 +305,12 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 calendar.set(Calendar.SECOND,0);
                 calendar.set(Calendar.MILLISECOND,0);
 
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),
-                        AlarmManager.INTERVAL_DAY,pendingIntent);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
 
                 timeTonotify = FormatTime(picker.getHour(),picker.getMinute());
+                Tm_btn.setText(timeTonotify);
                 Log.d(TAG, "The folder Settings= " + folder_main);
                 Toast.makeText(SettingsActivity.this,"Alarm Set Successfully at "+ timeTonotify + folder_main, Toast.LENGTH_SHORT).show();
-
-
-
 
             }
 

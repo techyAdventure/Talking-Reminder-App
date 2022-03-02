@@ -7,179 +7,217 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".SettingsActivity"
-    android:orientation="vertical">
 
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="350dp"-->
-<!--        android:src="@drawable/layout">-->
-
-<!--    </ImageView>-->
-
-    <ImageView
-        android:id="@+id/TimePickerBTN"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/alarms"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:layout_below="@+id/date"
-        android:clickable="true">
-
-    </ImageView>
-
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Time"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/date"
-        android:textSize="24sp"
-        android:fontFamily="@font/amaranth">
-
-    </TextView>
-
-<!--    <Button-->
-<!--        android:id="@+id/TimePickerBTN"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="150dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:background="@drawable/settingsbtn"-->
-<!--        android:layout_below="@+id/date"-->
-<!--        android:clickable="true"-->
-<!--        android:fontFamily="@font/manga"-->
-<!--        android:text="Motor ON"-->
-<!--        android:textAllCaps="true"-->
-<!--        android:textColor="#fff"-->
-<!--        android:textSize="30dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:backgroundTint="@null">-->
-
-<!--    </Button>-->
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:id="@+id/ll"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/TimePickerBTN"
-        android:layout_marginTop="20dp"
+        android:background="@drawable/gradient"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@drawable/llayout"
-        tools:context=".SettingsActivity"
-        >
+        tools:context=".SettingsActivity">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Task to Remind You"
-            android:textSize="16sp"
-            android:textColor="#150338"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="sans-serif-medium"/>
-
-        <EditText
-            android:id="@+id/title_text"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/custom_edittext"
-            android:hint="@string/edittext_hint_T"
-            android:padding="10dp"/>
+            android:layout_height="350dp"
+            android:src="@drawable/layout">
+
+        </ImageView>
+
+
 
         <TextView
+            android:id="@+id/textStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/msg"
-            android:text="Message to Notify"
-            android:textSize="16sp"
-            android:textColor="#150338"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="sans-serif-medium"/>
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/amaranth"
+            android:text="Create New Task"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold">
+
+        </TextView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/msg"
-            android:orientation="horizontal"
+            android:layout_below="@+id/textStart"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/llayout"
+            android:orientation="vertical"
+            android:padding="20dp"
             tools:context=".SettingsActivity">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/acme"
+                android:text="Title"
+                android:textColor="#929293"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="@string/edittext_hint_T"
+                android:padding="10dp" />
+
+
+            <TextView
+                android:id="@+id/msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/acme"
+                android:text="Message to Notify"
+                android:textColor="#929293"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/custom_edittext"
                 android:hint="@string/edittext_hint"
                 android:padding="10dp" />
 
-            <ImageView
-                android:id="@+id/volume"
-                android:layout_width="40dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/ic_baseline_volume_up_24" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/acme"
+                android:text="Pitch"
+                android:textColor="#929293"
+                android:textSize="15sp" />
 
+            <SeekBar
+                android:id="@+id/seek_bar_pitch"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:progress="50"
+                android:progressDrawable="@drawable/seek_style"
+                android:thumb="@drawable/seek" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/acme"
+                android:text="Speed"
+                android:textColor="#929293"
+                android:textSize="15sp" />
+
+            <SeekBar
+                android:id="@+id/seek_bar_speed"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:progress="50"
+                android:progressDrawable="@drawable/seek_style"
+                android:thumb="@drawable/seek" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                tools:context=".SettingsActivity">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/acme"
+                        android:text="Date"
+                        android:textColor="#929293"
+                        android:textSize="15sp" />
+
+                    <android.widget.Button
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/date_main_button"
+                        android:drawableStart="@drawable/ic_twotone_calendar_today_24"
+                        android:fontFamily="@font/amaranth"
+                        android:padding="5dp"
+                        android:text="Date"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/acme"
+                        android:text="Time"
+                        android:textColor="#929293"
+                        android:textSize="15sp" />
+
+                    <android.widget.Button
+                        android:id="@+id/TimePickerBTN"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/date_main_button"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_baseline_access_time_filled_24"
+                        android:fontFamily="@font/amaranth"
+                        android:padding="5dp"
+                        android:text="Time"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pitch"
-            android:textSize="16sp"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="#150338"/>
-
-        <SeekBar
-            android:id="@+id/seek_bar_pitch"
-            android:layout_width="200dp"
-            android:layout_marginBottom="12dp"
-            android:layout_height="wrap_content"
-            android:progress="50" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Speed"
-            android:textSize="16sp"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="#150338"/>
-
-        <SeekBar
-            android:id="@+id/seek_bar_speed"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:progress="50" />
-
-        <Button
+        <android.widget.Button
             android:id="@+id/button_speak"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:enabled="true"
-            android:text="Say it!"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="534dp"
+            android:layout_marginEnd="30dp"
             android:background="@drawable/custom_btn"
-            android:textColor="#fff"/>
-
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+            android:fontFamily="@font/amaranth"
+            android:text="Create Task"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </ScrollView>
