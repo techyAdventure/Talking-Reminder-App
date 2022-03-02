@@ -41,12 +41,11 @@ public class    AlarmReceiver extends BroadcastReceiver {
         Intent i = new Intent(context, ListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,0);
-        RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_layout);
+        RemoteViews contentView = new RemoteViews(context.getPackageName(),R.layout.notification_layout);
         //contentView.setImageViewResource(R.id., R.mipmap.ic_launcher);
         PendingIntent pendingSwitchIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         contentView.setOnClickPendingIntent(R.id.flashButton, pendingSwitchIntent);
-        contentView.setTextViewText(R.id.message, text);
-        contentView.setTextViewText(R.id.date, date);
+        contentView.setTextViewText(R.id.message, "Don't forget to do "+text);
 
         String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/"+folder+"/"+"myTone" + ".mp3";
 
@@ -80,7 +79,7 @@ public class    AlarmReceiver extends BroadcastReceiver {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"foxandroid")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
                 .setAutoCancel(true)
                 .setSilent(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
