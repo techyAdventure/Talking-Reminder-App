@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="trans">#00000000 </color>
     <color name="headerDate">#C3C9FC</color>
+    <color name="header">#DF0753</color>
 </resources>

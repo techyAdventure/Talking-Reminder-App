@@ -1,53 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-    android:layout_margin="10dp"
-    app:cardCornerRadius="10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@drawable/list_layout">
 
-
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="20dp"
-            android:textStyle="italic" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/day"
+                android:text="Tue"
+                android:layout_gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="@font/amaranth"
+                android:textColor="@android:color/black"
+                android:alpha="0.5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtDate"
+                android:text="18"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textColor="#DF0753" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/month"
+                android:layout_gravity="center"
+                android:text="Nov"
+                android:fontFamily="@font/amaranth"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:alpha="0.5"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="@android:color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:layout_gravity="center_horizontal"
+            android:padding="2dp"
+            android:layout_marginLeft="10dp"
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="3:00 PM"
+                    android:singleLine="true"
+                    android:alpha="0.5"
+                    android:id="@+id/txtTime"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/amaranth"
+                    android:textColor="@android:color/black"/>
 
 
-        <TextView
-            android:id="@+id/txtTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time"
-            android:textSize="20dp"
-            android:textStyle="italic" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/del"
-            android:text="Delete">
+            </LinearLayout>
 
-        </Button>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Title"
+                android:singleLine="true"
+                android:textSize="15sp"
+                android:id="@+id/txtTitle"
+                android:fontFamily="@font/amaranth"
+                android:textStyle="bold"
+                android:layout_gravity="left"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>
+

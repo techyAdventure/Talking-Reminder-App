@@ -4,6 +4,7 @@ import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.AlarmManager;
@@ -43,6 +44,7 @@ import android.widget.SeekBar;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -60,8 +62,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     private Calendar calendar;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    private Button Tm_btn;
-    private ImageView spk;
+    public Button Tm_btn;
     dbManager DB;
     private TextToSpeech mTTS;
     private EditText mEditText;
@@ -69,10 +70,11 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     private SeekBar mSeekBarSpeed;
     private Button mButtonSpeak;
     private Button date_pc;
-
-
+    ArrayList<Model> dataholder = new ArrayList<Model>();                                               //Array list to add reminders and display in recyclerview
+    myAdapter adapter;
+    private Context context;
     private EditText mTitleText;
-    String timeTonotify;
+    public String timeTonotify;
     public static String text;
     public static String title;
     String date_to;
@@ -91,6 +93,8 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         setContentView(R.layout.activity_settings);
 
         random = new Random();
+        adapter = new myAdapter(dataholder,context);
+        context = getApplicationContext();
 
         DB = new dbManager(SettingsActivity.this);
         Tm_btn = findViewById(R.id.TimePickerBTN);
@@ -103,6 +107,17 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
         createNotificationChannel();
 
+        Date date = new Date();
+        simpleDateFormat = new SimpleDateFormat("E, dd MMM");
+        String dateformat = simpleDateFormat.format(date);
+
+        folder_main = String.valueOf(random.nextInt(1000));
+
+        date_pc.setText(dateformat);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("h:mm a");
+        Tm_btn.setText(simpleDateFormat2.format(calendar.getTime()));
+
         Tm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,14 +127,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             }
         });
 
-        Date date = new Date();
-        simpleDateFormat = new SimpleDateFormat("d MMMM");
-        String dateformat = simpleDateFormat.format(date);
-
-        folder_main = String.valueOf(random.nextInt(1000));
-
-        date_pc.setText(dateformat);
-
         date_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,9 +135,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
             }
         });
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("h:mm a");
-        Tm_btn.setText(simpleDateFormat2.format(calendar.getTime()));
 
         mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -143,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                             || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "Language not supported");
                     } else {
-                       spk.setEnabled(true);
+                       mButtonSpeak.setEnabled(true);
                     }
                 } else {
                     Log.e("TTS", "Initialization failed");
@@ -156,14 +160,10 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             }
         });
 
-
-
-
         mButtonSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 speak();
-
 
             }
         });
@@ -288,29 +288,28 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 .build();
 
         picker.show(getSupportFragmentManager(),"foxandroid");
-
         picker.addOnPositiveButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(SettingsActivity.this,
-                        AlarmReceiver.class);
+                    alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    Intent intent = new Intent(SettingsActivity.this,
+                            AlarmReceiver.class);
 
-                pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this,0,intent,0);
+                    pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0, intent, 0);
 
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY,picker.getHour());
-                calendar.set(Calendar.MINUTE,picker.getMinute());
-                calendar.set(Calendar.SECOND,0);
-                calendar.set(Calendar.MILLISECOND,0);
+                    calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, picker.getHour());
+                    calendar.set(Calendar.MINUTE, picker.getMinute());
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
 
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),pendingIntent);
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-                timeTonotify = FormatTime(picker.getHour(),picker.getMinute());
-                Tm_btn.setText(timeTonotify);
-                Log.d(TAG, "The folder Settings= " + folder_main);
-                Toast.makeText(SettingsActivity.this,"Alarm Set Successfully at "+ timeTonotify + folder_main, Toast.LENGTH_SHORT).show();
+                    timeTonotify = FormatTime(picker.getHour(), picker.getMinute());
+                    Tm_btn.setText(timeTonotify);
+                    Log.d(TAG, "The folder Settings= " + folder_main);
+                    Toast.makeText(SettingsActivity.this, "Alarm Set Successfully at " + timeTonotify + folder_main, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -318,6 +317,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
 
     }
+
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
