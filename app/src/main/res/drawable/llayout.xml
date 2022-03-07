@@ -4,7 +4,7 @@
 
     <corners android:radius="10dp"></corners>
 
-    <solid android:color="#fff"></solid>
+    <solid android:color="@color/listview"></solid>
     <stroke android:color="#e8e8e8"
         android:width="2dp"
         android:dashGap="100dp"></stroke>

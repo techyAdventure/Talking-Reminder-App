@@ -25,11 +25,9 @@ public class dbManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
         String query = "DROP TABLE IF EXISTS tbl_reminder";                                         //sql query to check table with the same name or not
         sqLiteDatabase.execSQL(query);                                                              //executes the sql command
         onCreate(sqLiteDatabase);
-
     }
 
     public String addreminder(String title, String date, String time) {
@@ -47,19 +45,10 @@ public class dbManager extends SQLiteOpenHelper {
         } else {
             return "Successfully inserted";
         }
-
     }
 
-    public Cursor deleteData(String id){
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Cursor c = db.rawQuery("delete from tbl_reminder where title='"+id+"'",null);
-        return c;
-    }
     public int deleteList(String sid) {
-
         SQLiteDatabase db = getWritableDatabase();
-
         return db.delete("tbl_reminder", "title=?", new String[]{(sid)});
     }
 

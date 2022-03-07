@@ -17,6 +17,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private int STORAGE_PERMISSION_CODE = 1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +57,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(null);
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-//            Toast.makeText(MainActivity.this, "You have already granted this permission!",
-//                    Toast.LENGTH_SHORT).show();
         } else {
             requestStoragePermission();
         }
-
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     private void requestStoragePermission() {
@@ -118,11 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu,menu);
         return true;
-
     }
 
     @Override
@@ -133,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ListActivity.class);
             startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="headerDate">#C3C9FC</color>
+    <color name="header">#DF0753</color>
+    <color name="background">#02023F</color>
+    <color name="startClr_G1">#E60755</color>
+    <color name="centerClr_G1">#F33C61</color>
+    <color name="endClr_G1">#F34C4C</color>
+    <color name="SettingsText">#FFFFFFFF</color>
+    <color name="startClr_G2">#FF000000</color>
+    <color name="centerClr_G2">#33255F</color>
+    <color name="endClr_G2">#000032</color>
+    <color name="notify">#3A3A3A</color>
+    <color name="listview">#323249</color>
+    <color name="day">#FFF7F7</color>
+    <color name="toolbar">#000</color>
+</resources>

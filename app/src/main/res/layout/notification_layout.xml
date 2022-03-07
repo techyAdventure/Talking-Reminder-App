@@ -7,15 +7,8 @@
         android:id="@+id/layout"
         android:layout_width="fill_parent"
         android:layout_height="64dp"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/flashButton"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/ic_baseline_snooze_24"/>
+        android:padding="10dp"
+        android:background="@color/notify">
 
         <ImageView
             android:id="@+id/icon"
@@ -41,8 +34,8 @@
                 android:layout_alignParentLeft="true"
                 android:text="Talking Reminder"
                 android:fontFamily="@font/amaranth"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textColor="@color/day"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/message"
@@ -53,8 +46,8 @@
                 android:layout_marginTop="3dp"
                 android:text="Don't Forget"
                 android:fontFamily="@font/amaranth"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textColor="@color/day"
+                android:textSize="13sp"/>
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -58,33 +58,33 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
 
     private MaterialTimePicker picker;
-    
     private Calendar calendar;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+
     public Button Tm_btn;
-    dbManager DB;
     private TextToSpeech mTTS;
     private EditText mEditText;
     private SeekBar mSeekBarPitch;
     private SeekBar mSeekBarSpeed;
     private Button mButtonSpeak;
     private Button date_pc;
-    ArrayList<Model> dataholder = new ArrayList<Model>();                                               //Array list to add reminders and display in recyclerview
-    myAdapter adapter;
+
+
     private Context context;
     private EditText mTitleText;
     public String timeTonotify;
     public static String text;
     public static String title;
-    String date_to;
-    Date date1;
     public static String folder_main;
 
+    String date_to;
+    Date date1;
     SimpleDateFormat simpleDateFormat;
     Random random;
-
-
+    myAdapter adapter;
+    dbManager DB;
+    ArrayList<Model> dataholder = new ArrayList<Model>();                                               //Array list to add reminders and display in recyclerview
     public boolean textToSpeechIsInitialized = false;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -121,18 +121,14 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         Tm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showTimePicker();
-
             }
         });
 
         date_pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showDatePicker();
-
             }
         });
 
@@ -164,7 +160,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             @Override
             public void onClick(View v) {
                 speak();
-
             }
         });
 
@@ -184,13 +179,10 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 TimeZone timeZoneUTC = TimeZone.getDefault();
                 // It will be negative, so that's the -1
                 int offsetFromUTC = timeZoneUTC.getOffset(new Date().getTime()) * -1;
-
                 date1 = new Date(selection + offsetFromUTC);
-
                 date_pc.setText(simpleDateFormat.format(date1));
             }
         });
-
 
     }
 
@@ -207,39 +199,18 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
         mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 
-        String state = Environment.getExternalStorageState();
-        boolean mExternalStorageWriteable = false;
-        boolean mExternalStorageAvailable = false;
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            // Can read and write the media
-            mExternalStorageAvailable = mExternalStorageWriteable = true;
-
-        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            // Can only read the media
-            mExternalStorageAvailable = true;
-            mExternalStorageWriteable = false;
-        } else {
-            // Can't read or write
-            mExternalStorageAvailable = mExternalStorageWriteable = false;
-        }
-
-
         text = mEditText.getText().toString();
         title = mTitleText.getText().toString().trim();                               //access the data form the input field
         date_to = date_pc.getText().toString().trim();
 
         if (!text.isEmpty()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
                 String fileName = "/myTone.mp3";
-
                 File f = new File(getExternalFilesDir(null) + "/", folder_main);
                 File file = new File(f, fileName);
                 if (!f.exists()) {
                     f.mkdir();
-//                    Toast.makeText(SettingsActivity.this, "Make Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
                 }
-//                Toast.makeText(SettingsActivity.this, "Done Dir" + file.getPath(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "The file path = " + file.getAbsolutePath());
                 int test = mTTS.synthesizeToFile((CharSequence) text, null, file,
                         "tts");
@@ -256,15 +227,12 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                     mTitleText.setText("");
                     mEditText.setText("");
                     Intent intent = new Intent(SettingsActivity.this, ListActivity.class);
-                    intent.putExtra("tile_text", title);
                     startActivity(intent);
-
+                    Toast.makeText(SettingsActivity.this, "Alarm Set Successfully at " + timeTonotify, Toast.LENGTH_SHORT).show();
                 }
             }
 
-
         }
-
 
     @Override
     protected void onDestroy() {
@@ -309,7 +277,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                     timeTonotify = FormatTime(picker.getHour(), picker.getMinute());
                     Tm_btn.setText(timeTonotify);
                     Log.d(TAG, "The folder Settings= " + folder_main);
-                    Toast.makeText(SettingsActivity.this, "Alarm Set Successfully at " + timeTonotify + folder_main, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -321,11 +288,9 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "foxandroidReminderChannel";
-            String description = "Channel For Alarm Manager";
+            CharSequence name = "TalkingReminder";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("foxandroid",name,importance);
-            channel.setDescription(description);
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
@@ -357,7 +322,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             int temp = hour - 12;
             time = temp + ":" + formattedMinute + " PM";
         }
-
 
         return time;
     }

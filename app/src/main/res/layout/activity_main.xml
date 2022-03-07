@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="@drawable/main_gradient">
 
    <com.google.android.material.appbar.AppBarLayout
        android:layout_width="match_parent"
@@ -18,7 +18,7 @@
           android:layout_width="match_parent"
           android:id="@+id/toolbar"
           app:titleTextColor="#787474"
-          android:background="#fff"
+          android:background="@color/toolbar"
           android:layout_height="?attr/actionBarSize">
       </androidx.appcompat.widget.Toolbar>
 
@@ -27,23 +27,22 @@
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:orientation="vertical"
        android:layout_below="@+id/app_bar"
-       android:layout_alignParentBottom="true"
        android:layout_alignParentRight="true"
-       android:layout_weight="1">
+       android:layout_alignParentBottom="true"
+       android:layout_weight="1"
+       android:orientation="vertical">
 
       <LinearLayout
           android:id="@+id/cartoon_layout"
           android:layout_width="wrap_content"
           android:layout_height="400dp"
           android:layout_below="@+id/app_bar"
-          android:gravity="center_horizontal"
-          android:orientation="horizontal"
-          tools:context=".SettingsActivity"
           android:layout_alignParentLeft="true"
           android:layout_alignParentTop="true"
-          >
+          android:gravity="center_horizontal"
+          android:orientation="horizontal"
+          tools:context=".SettingsActivity">
 
          <pl.droidsonroids.gif.GifImageView
              android:layout_width="wrap_content"
@@ -52,7 +51,7 @@
              android:layout_marginStart="-50dp"
              android:layout_marginTop="300dp"
              android:layout_marginEnd="50dp"
-             android:src="@drawable/thinking"></pl.droidsonroids.gif.GifImageView>
+             android:src="@drawable/think_girl"></pl.droidsonroids.gif.GifImageView>
 
          <pl.droidsonroids.gif.GifImageView
              android:layout_width="wrap_content"
@@ -67,11 +66,11 @@
           android:id="@+id/selectTimeBTN"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_gravity="center"
           android:background="@drawable/custom_btn"
           android:clickable="true"
-          android:padding="7dp"
-          android:layout_gravity="center"
           android:fontFamily="@font/amaranth"
+          android:padding="7dp"
           android:text="Get Started"
           android:textAllCaps="true"
           android:textColor="#fff"

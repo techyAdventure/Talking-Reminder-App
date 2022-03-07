@@ -7,7 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="trans">#00000000 </color>
     <color name="headerDate">#C3C9FC</color>
     <color name="header">#DF0753</color>
+    <color name="background">#FFFFFF</color>
+    <color name="startClr_G1">#EF3174</color>
+    <color name="centerClr_G1">#F65475</color>
+    <color name="endClr_G1">#F16060</color>
+    <color name="SettingsText">#000032</color>
+    <color name="startClr_G2">#FFFFFF</color>
+    <color name="centerClr_G2">#FFE1E1</color>
+    <color name="endClr_G2">#FBA2A2</color>
+    <color name="notify">#F6F6F6</color>
+    <color name="listview">#fff</color>
+    <color name="day">#FF000000</color>
+    <color name="toolbar">#fff</color>
 </resources>

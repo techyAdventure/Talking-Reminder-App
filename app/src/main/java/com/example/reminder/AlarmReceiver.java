@@ -28,13 +28,10 @@ import java.io.IOException;
 public class    AlarmReceiver extends BroadcastReceiver {
     private  MediaPlayer mp;
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Bundle bundle = intent.getExtras();
         String text = SettingsActivity.title;
-        String date = SettingsActivity.text ;
         String folder = SettingsActivity.folder_main ;
         Log.d(TAG, "The folder = " + folder);
 
@@ -43,9 +40,7 @@ public class    AlarmReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,0);
         RemoteViews contentView = new RemoteViews(context.getPackageName(),R.layout.notification_layout);
         //contentView.setImageViewResource(R.id., R.mipmap.ic_launcher);
-        PendingIntent pendingSwitchIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        contentView.setOnClickPendingIntent(R.id.flashButton, pendingSwitchIntent);
-        contentView.setTextViewText(R.id.message, "Don't forget to do "+text);
+        contentView.setTextViewText(R.id.message, "Don't forget to "+text);
 
         String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/"+folder+"/"+"myTone" + ".mp3";
 
@@ -82,8 +77,10 @@ public class    AlarmReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
                 .setAutoCancel(true)
                 .setSilent(true)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContent(contentView)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pendingIntent);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

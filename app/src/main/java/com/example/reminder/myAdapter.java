@@ -54,9 +54,6 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
             e.printStackTrace();
         }
 
-
-
-
     }
 
     @Override

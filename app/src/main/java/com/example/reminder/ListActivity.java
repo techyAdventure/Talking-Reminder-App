@@ -51,8 +51,8 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
-        mBackground = new ColorDrawable();
 
+        mBackground = new ColorDrawable();
         backgroundColor = android.graphics.Color.parseColor("#808080");
         deleteDrawable = ContextCompat.getDrawable(ListActivity.this, R.drawable.ic_round_delete_24);
         intrinsicWidth = deleteDrawable.getIntrinsicWidth();
@@ -71,7 +71,6 @@ public class ListActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             Model model = new Model(cursor.getString(1), cursor.getString(2), cursor.getString(3));
             dataholder.add(model);
-
         }
 
         flt_btn.setOnClickListener(new View.OnClickListener() {
@@ -94,17 +93,15 @@ public class ListActivity extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Confirmation!!");
-                builder.setIcon(R.drawable.ic_baseline_highlight_off_24);
                 builder.setMessage("Are you sure you want to delete?");
+                builder.setIcon(R.drawable.ic_baseline_mood_bad_24);
                 Model model = dataholder.get(viewHolder.getAbsoluteAdapterPosition());
 
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         dbManager Db = new dbManager(context);
-
-
                         String sid = model.getTitle();
 
                         int result = Db.deleteList(sid);
@@ -118,7 +115,7 @@ public class ListActivity extends AppCompatActivity {
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         adapter.notifyItemChanged(viewHolder.getAbsoluteAdapterPosition());
@@ -135,7 +132,6 @@ public class ListActivity extends AppCompatActivity {
 
                 View itemView = viewHolder.itemView;
                 int itemHeight = itemView.getHeight();
-                int itemWidth = itemView.getWidth();
 
                 boolean isCancelled = dX == 0 && !isCurrentlyActive;
 
@@ -174,28 +170,16 @@ public class ListActivity extends AppCompatActivity {
             public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
                 return 0.7f;
             }
-//
         };
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerview);
         adapter.notifyItemRangeChanged(0, dataholder.size());
     }
 
-
-
-
-
-
-
-
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(ListActivity.this,MainActivity.class);
         startActivity(intent);
-//        finish();//Makes the user to exit form the app
         super.onBackPressed();
-
     }
-
 
 }
