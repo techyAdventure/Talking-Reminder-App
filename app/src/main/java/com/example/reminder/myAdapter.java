@@ -1,7 +1,11 @@
 package com.example.reminder;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +39,11 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull myviewholder holder, @SuppressLint("RecyclerView") int position) {
+
         holder.mTitle.setText(dataholder.get(position).getTitle());                                 //Binds the single reminder objects to recycler view
         holder.mTime.setText(dataholder.get(position).getTime());
+
+
         try {
 
             outputDateString = dataholder.get(position).getDate();
@@ -64,7 +71,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
     public class myviewholder extends RecyclerView.ViewHolder {
 
 
-        TextView mTitle, mDate, mTime,day,month;
+        TextView mTitle, mDate, mTime,day,month,status;
 
 
         public myviewholder(@NonNull View itemView) {
@@ -75,6 +82,8 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
             mTime = (TextView) itemView.findViewById(R.id.txtTime);
             day = (TextView) itemView.findViewById(R.id.day);
             month = (TextView) itemView.findViewById(R.id.month);
+            status =(TextView) itemView.findViewById(R.id.month);
+
         }
 
     }

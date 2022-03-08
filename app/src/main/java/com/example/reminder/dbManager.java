@@ -19,7 +19,7 @@ public class dbManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {                                           //sql query to insert data in sqllite
-        String query = "create table tbl_reminder(id integer primary key autoincrement,title text,date text,time text)";
+        String query = "create table tbl_reminder(id integer primary key autoincrement,title text,date text,time text,event text)";
         sqLiteDatabase.execSQL(query);
     }
 

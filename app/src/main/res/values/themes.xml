@@ -48,30 +48,4 @@
 
 
 
-
-
-
-
-<!--        &lt;!&ndash; Or you can change very item color &ndash;&gt;-->
-<!--        <item name="android:">@style/MaterialAlertDialog.MaterialComponents</item>-->
-<!--    </style>-->
-
-<!--    <style name="MaterialAlertDialog.MaterialComponents" parent="@android:style/Widget.Material.Light.DatePicker">-->
-<!--        <item name="android:headerBackground">@color/design_default_color_primary</item>-->
-<!--        <item name="android:dayOfWeekBackground">@color/design_default_color_primary</item>-->
-<!--&lt;!&ndash;        <item name="android:dayOfWeekTextAppearance">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:headerMonthTextAppearance">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:headerDayOfMonthTextAppearance">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:headerYearTextAppearance">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:headerSelectedTextColor">@color/chosen_header_bg_color</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="materialCalendarHeaderSelection">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:yearListItemTextAppearance">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:yearListSelectorColor">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:calendarTextColor">@color/design_default_color_primary</item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:calendarTextColor"></item>&ndash;&gt;-->
-<!--&lt;!&ndash;        <item name="android:calendarSelectedTextColor">@color/chosen_header_bg_color</item>&ndash;&gt;-->
-<!--    </style>-->
-
-
-
 </resources>

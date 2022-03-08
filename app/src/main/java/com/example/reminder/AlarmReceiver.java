@@ -7,11 +7,10 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 
-import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -25,8 +24,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+
 public class    AlarmReceiver extends BroadcastReceiver {
     private  MediaPlayer mp;
+
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -37,10 +39,11 @@ public class    AlarmReceiver extends BroadcastReceiver {
 
         Intent i = new Intent(context, ListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,PendingIntent.FLAG_UPDATE_CURRENT);
         RemoteViews contentView = new RemoteViews(context.getPackageName(),R.layout.notification_layout);
         //contentView.setImageViewResource(R.id., R.mipmap.ic_launcher);
         contentView.setTextViewText(R.id.message, "Don't forget to "+text);
+
 
         String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/"+folder+"/"+"myTone" + ".mp3";
 
@@ -73,6 +76,7 @@ public class    AlarmReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
 
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"foxandroid")
                 .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
                 .setAutoCancel(true)
@@ -81,11 +85,14 @@ public class    AlarmReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContent(contentView)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setContentIntent(pendingIntent);
+                .setFullScreenIntent(pendingIntent,true);
+
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(123,builder.build());
 
 
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -45,12 +46,14 @@ public class ListActivity extends AppCompatActivity {
     private int intrinsicWidth;
     private int intrinsicHeight;
     private Paint mClearPaint;
+    public static String status_text;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
+
 
         mBackground = new ColorDrawable();
         backgroundColor = android.graphics.Color.parseColor("#808080");
@@ -63,6 +66,7 @@ public class ListActivity extends AppCompatActivity {
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerView);
         flt_btn = findViewById(R.id.fab_btn);
         adapter = new myAdapter(dataholder,context);
+
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerview.setAdapter(adapter);

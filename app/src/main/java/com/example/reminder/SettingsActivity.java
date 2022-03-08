@@ -45,6 +45,7 @@ import android.widget.SeekBar;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -77,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     public static String text;
     public static String title;
     public static String folder_main;
+    public static String status_text;
 
     String date_to;
     Date date1;
@@ -137,6 +139,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
                     textToSpeechIsInitialized = true;
+
                     int result = mTTS.setLanguage(Locale.US);
 
                     if (result == TextToSpeech.LANG_MISSING_DATA
@@ -223,6 +226,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 if (timeTonotify == null || date_to == null) {                                               //shows toast if date and time are not selected //|| date.equals("date")
                     Toast.makeText(SettingsActivity.this, "Please select time", Toast.LENGTH_SHORT).show();
                 } else {
+                    status_text = "Upcoming";
                     String result = DB.addreminder(title, date_to, timeTonotify);
                     mTitleText.setText("");
                     mEditText.setText("");
@@ -328,11 +332,12 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
     @Override
     public void onInit(int i) {
-        if (i == TextToSpeech.SUCCESS) {
-            //Setting speech Language
-            mTTS.setLanguage(Locale.ENGLISH);
-            mTTS.setPitch(1);
-        }
+
+            if (i == TextToSpeech.SUCCESS) {
+                //Setting speech Language
+                mTTS.setLanguage(Locale.US);
+                mTTS.setPitch(1);
+            }
     }
     @Override
     protected void onResume() {
