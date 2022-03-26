@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -43,6 +44,8 @@ public class    AlarmReceiver extends BroadcastReceiver {
         RemoteViews contentView = new RemoteViews(context.getPackageName(),R.layout.notification_layout);
         //contentView.setImageViewResource(R.id., R.mipmap.ic_launcher);
         contentView.setTextViewText(R.id.message, "Don't forget to "+text);
+        PendingIntent pendingSwitchIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        contentView.setOnClickPendingIntent(R.id.flashButton, pendingSwitchIntent);
 
 
         String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/"+folder+"/"+"myTone" + ".mp3";
@@ -64,11 +67,31 @@ public class    AlarmReceiver extends BroadcastReceiver {
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build());
 
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"foxandroid")
+                .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
+                .setAutoCancel(true)
+                .setSilent(true)
+                .setOnlyAlertOnce(true)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContent(contentView)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setFullScreenIntent(pendingIntent,true);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+        notificationManagerCompat.notify(123,builder.build());
         try {
-                mp.setDataSource(inputStream.getFD());
-                mp.prepare();
-                mp.start();
-                inputStream.close();
+            mp.setDataSource(inputStream.getFD());
+            mp.prepare();
+            mp.start();
+            SystemClock.sleep(2000);
+            mp.start();
+            SystemClock.sleep(2000);
+            mp.start();
+            SystemClock.sleep(2000);
+            mp.stop();
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }catch (Exception e) {
@@ -77,19 +100,7 @@ public class    AlarmReceiver extends BroadcastReceiver {
         }
 
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"foxandroid")
-                .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
-                .setAutoCancel(true)
-                .setSilent(true)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContent(contentView)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setFullScreenIntent(pendingIntent,true);
 
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-        notificationManagerCompat.notify(123,builder.build());
 
 
     }

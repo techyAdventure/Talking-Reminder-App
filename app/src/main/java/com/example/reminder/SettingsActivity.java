@@ -86,6 +86,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     Random random;
     myAdapter adapter;
     dbManager DB;
+    Button snooze;
     ArrayList<Model> dataholder = new ArrayList<Model>();                                               //Array list to add reminders and display in recyclerview
     public boolean textToSpeechIsInitialized = false;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -106,6 +107,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         mSeekBarSpeed = findViewById(R.id.seek_bar_speed);
         mTitleText = findViewById(R.id.title_text);
         date_pc = findViewById(R.id.date);
+        snooze = findViewById(R.id.snooze);
 
         createNotificationChannel();
 
@@ -133,7 +135,14 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 showDatePicker();
             }
         });
-
+//        snooze.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//
+//            }
+//        });
         mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -202,6 +211,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
 
         mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 
+
         text = mEditText.getText().toString();
         title = mTitleText.getText().toString().trim();                               //access the data form the input field
         date_to = date_pc.getText().toString().trim();
@@ -223,9 +233,12 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             if (title.isEmpty()) {
                 Toast.makeText(SettingsActivity.this, "Please Enter title", Toast.LENGTH_SHORT).show();   //shows the toast if input field is empty
             } else {
-                if (timeTonotify == null || date_to == null) {                                               //shows toast if date and time are not selected //|| date.equals("date")
+                if (timeTonotify == null || date_to == null ) {                                               //shows toast if date and time are not selected //|| date.equals("date")
                     Toast.makeText(SettingsActivity.this, "Please select time", Toast.LENGTH_SHORT).show();
-                } else {
+                }else if(text.isEmpty()){
+                    Toast.makeText(SettingsActivity.this, "Please Enter Message", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     status_text = "Upcoming";
                     String result = DB.addreminder(title, date_to, timeTonotify);
                     mTitleText.setText("");
@@ -285,6 +298,16 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             }
 
         });
+//        if(snooze.isPressed()){
+//            Intent intent = new Intent(SettingsActivity.this, AlarmReceiver.class);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0, intent, 0);
+//            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.add(Calendar.MINUTE, 2);
+//            Date date = calendar.getTime();
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime(), pendingIntent);
+//
+//        }
 
 
     }

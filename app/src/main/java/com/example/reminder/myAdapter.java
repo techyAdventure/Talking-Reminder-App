@@ -1,14 +1,20 @@
 package com.example.reminder;
 
+import static android.content.Context.ALARM_SERVICE;
+
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -61,6 +67,8 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
             e.printStackTrace();
         }
 
+
+
     }
 
     @Override
@@ -74,6 +82,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
         TextView mTitle, mDate, mTime,day,month,status;
 
 
+
         public myviewholder(@NonNull View itemView) {
             super(itemView);
 
@@ -83,6 +92,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
             day = (TextView) itemView.findViewById(R.id.day);
             month = (TextView) itemView.findViewById(R.id.month);
             status =(TextView) itemView.findViewById(R.id.month);
+
 
         }
 
