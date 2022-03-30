@@ -4,11 +4,13 @@ import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.AlarmManager;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -21,6 +23,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 
+import android.os.SystemClock;
 import android.view.View;
 
 import android.widget.Button;
@@ -87,6 +90,8 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     myAdapter adapter;
     dbManager DB;
     Button snooze;
+    public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
+    private final static String default_notification_channel_id = "default" ;
     ArrayList<Model> dataholder = new ArrayList<Model>();                                               //Array list to add reminders and display in recyclerview
     public boolean textToSpeechIsInitialized = false;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -107,7 +112,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         mSeekBarSpeed = findViewById(R.id.seek_bar_speed);
         mTitleText = findViewById(R.id.title_text);
         date_pc = findViewById(R.id.date);
-        snooze = findViewById(R.id.snooze);
 
         createNotificationChannel();
 
@@ -135,14 +139,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
                 showDatePicker();
             }
         });
-//        snooze.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//
-//            }
-//        });
+
         mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -298,16 +295,6 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
             }
 
         });
-//        if(snooze.isPressed()){
-//            Intent intent = new Intent(SettingsActivity.this, AlarmReceiver.class);
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(SettingsActivity.this, 0, intent, 0);
-//            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.add(Calendar.MINUTE, 2);
-//            Date date = calendar.getTime();
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime(), pendingIntent);
-//
-//        }
 
 
     }

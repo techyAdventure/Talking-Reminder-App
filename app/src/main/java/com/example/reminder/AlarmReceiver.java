@@ -3,7 +3,10 @@ package com.example.reminder;
 
 import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +14,8 @@ import android.content.IntentFilter;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 
+import android.os.Handler;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -24,31 +29,32 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class    AlarmReceiver extends BroadcastReceiver {
-    private  MediaPlayer mp;
-
+    private MediaPlayer mp;
 
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         String text = SettingsActivity.title;
-        String folder = SettingsActivity.folder_main ;
+        String folder = SettingsActivity.folder_main;
         Log.d(TAG, "The folder = " + folder);
 
         Intent i = new Intent(context, ListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,PendingIntent.FLAG_UPDATE_CURRENT);
-        RemoteViews contentView = new RemoteViews(context.getPackageName(),R.layout.notification_layout);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_layout);
         //contentView.setImageViewResource(R.id., R.mipmap.ic_launcher);
-        contentView.setTextViewText(R.id.message, "Don't forget to "+text);
-        PendingIntent pendingSwitchIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        contentView.setOnClickPendingIntent(R.id.flashButton, pendingSwitchIntent);
+        contentView.setTextViewText(R.id.message, "Don't forget to " + text);
+//        PendingIntent pendingSwitchIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+//        contentView.setOnClickPendingIntent(R.id.flashButton, pendingSwitchIntent);
 
 
-        String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/"+folder+"/"+"myTone" + ".mp3";
+        String audioPath = "/storage/emulated/0/Android/data/com.example.reminder/files/" + folder + "/" + "myTone" + ".mp3";
 
         File file = new File(audioPath);
         FileInputStream inputStream = null;
@@ -68,7 +74,7 @@ public class    AlarmReceiver extends BroadcastReceiver {
                         .build());
 
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"foxandroid")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "foxandroid")
                 .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
                 .setAutoCancel(true)
                 .setSilent(true)
@@ -77,10 +83,10 @@ public class    AlarmReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContent(contentView)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setFullScreenIntent(pendingIntent,true);
+                .setFullScreenIntent(pendingIntent, true);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-        notificationManagerCompat.notify(123,builder.build());
+        notificationManagerCompat.notify(123, builder.build());
         try {
             mp.setDataSource(inputStream.getFD());
             mp.prepare();
@@ -94,16 +100,13 @@ public class    AlarmReceiver extends BroadcastReceiver {
             inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Exception of type : " + e.toString());
             e.printStackTrace();
         }
 
 
-
-
-
     }
-
-
 }
+
+
