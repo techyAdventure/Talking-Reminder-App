@@ -17,7 +17,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +49,8 @@ public class ListActivity extends AppCompatActivity {
     private int intrinsicWidth;
     private int intrinsicHeight;
     private Paint mClearPaint;
+    private ImageView emptyView;
+    private TextView txt;
     public static String status_text;
 
 
@@ -61,12 +66,13 @@ public class ListActivity extends AppCompatActivity {
         intrinsicWidth = deleteDrawable.getIntrinsicWidth();
         intrinsicHeight = deleteDrawable.getIntrinsicHeight();
         mClearPaint = new Paint();
+        emptyView = (ImageView)findViewById(R.id.clock);
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        txt = findViewById(R.id.noTask);
 
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerView);
         flt_btn = findViewById(R.id.fab_btn);
         adapter = new myAdapter(dataholder,context);
-
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerview.setAdapter(adapter);
@@ -177,6 +183,10 @@ public class ListActivity extends AppCompatActivity {
         };
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerview);
         adapter.notifyItemRangeChanged(0, dataholder.size());
+
+        mRecyclerview.setVisibility(dataholder.isEmpty() ? View.GONE : View.VISIBLE);
+        emptyView.setVisibility(dataholder.isEmpty() ? View.VISIBLE : View.GONE);
+        txt.setVisibility(dataholder.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     @Override

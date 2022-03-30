@@ -73,6 +73,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
 
     @Override
     public int getItemCount() {
+
         return dataholder.size();
     }
 
@@ -80,6 +81,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
 
 
         TextView mTitle, mDate, mTime,day,month,status;
+
 
 
 
@@ -92,6 +94,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
             day = (TextView) itemView.findViewById(R.id.day);
             month = (TextView) itemView.findViewById(R.id.month);
             status =(TextView) itemView.findViewById(R.id.month);
+
 
 
         }

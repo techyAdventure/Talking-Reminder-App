@@ -23,6 +23,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -43,13 +45,58 @@
         android:fontFamily="@font/acme">
 
     </TextView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <ViewFlipper
+        android:id="@+id/flipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/app_bar"
-        android:paddingTop="50dp" />
+        android:layout_below="@+id/app_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/app_bar"
+            android:paddingTop="50dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="No task found"
+
+                android:textSize="25sp" />
+        </RelativeLayout>
+    </ViewFlipper>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/clock"
+        android:id="@+id/clock"
+        android:visibility="gone">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/noTask"
+        android:textColor="#d3d3d3"
+        android:layout_below="@+id/clock"
+        android:padding="5dp"
+        android:text="No Task Found"
+        android:visibility="gone">
+
+    </TextView>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_btn"
