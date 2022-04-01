@@ -70,6 +70,7 @@ public class ListActivity extends AppCompatActivity {
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         txt = findViewById(R.id.noTask);
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(ListActivity.this,R.color.startClr_G1));
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerView);
         flt_btn = findViewById(R.id.fab_btn);
         adapter = new myAdapter(dataholder,context);

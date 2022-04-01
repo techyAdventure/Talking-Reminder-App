@@ -5,6 +5,7 @@ import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -94,7 +95,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
     private final static String default_notification_channel_id = "default" ;
     ArrayList<Model> dataholder = new ArrayList<Model>();                                               //Array list to add reminders and display in recyclerview
     public boolean textToSpeechIsInitialized = false;
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +115,7 @@ public class SettingsActivity extends AppCompatActivity implements TextToSpeech.
         date_pc = findViewById(R.id.date);
 
         createNotificationChannel();
+        getWindow().setStatusBarColor(ContextCompat.getColor(SettingsActivity.this,R.color.toolbar));
 
         Date date = new Date();
         simpleDateFormat = new SimpleDateFormat("E, dd MMM");

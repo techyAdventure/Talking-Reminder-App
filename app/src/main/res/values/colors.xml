@@ -15,7 +15,7 @@
     <color name="endClr_G1">#F16060</color>
     <color name="SettingsText">#000032</color>
     <color name="startClr_G2">#FFFFFF</color>
-    <color name="centerClr_G2">#FFE1E1</color>
+    <color name="centerClr_G2">#FAEFEF</color>
     <color name="endClr_G2">#FBA2A2</color>
     <color name="notify">#F6F6F6</color>
     <color name="listview">#fff</color>

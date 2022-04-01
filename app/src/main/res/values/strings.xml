@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Talking Reminder</string>
-    <string name="edittext_hint_T"><font size="13" >Enter a Task</font></string>
-    <string name="edittext_hint"><font size="13">Enter a message</font></string>
+    <string name="app_name">RemindiFy</string>
+    <string name="edittext_hint_T"><font size="13" >Enter your Task</font></string>
+    <string name="edittext_hint"><font size="13">A Message to Remind You</font></string>
 </resources>

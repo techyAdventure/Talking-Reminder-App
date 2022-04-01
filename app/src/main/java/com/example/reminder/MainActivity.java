@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             requestStoragePermission();
         }
+        getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this,R.color.toolbar));
 
 
         button.setOnClickListener(new View.OnClickListener() {

@@ -66,6 +66,7 @@ public class    AlarmReceiver extends BroadcastReceiver {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+
         mp = new MediaPlayer();
         mp.setAudioAttributes(
                 new AudioAttributes.Builder()
